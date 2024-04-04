@@ -165,3 +165,33 @@ body {
     bottom: 100%;
   }
 }
+
+
+.login-box form .btn-animate {
+  background: transparent;
+  border: none;
+  color: #03e9f4;
+  cursor: pointer;
+  display: inline-block;
+  font-family: sans-serif; /* Match the font style of your form */
+  font-size: 16px;
+  margin-top: 40px;
+  overflow: hidden;
+  padding: 10px 20px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: .5s;
+  letter-spacing: 4px;
+  outline: none;
+}
+
+.login-box .btn-animate:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
