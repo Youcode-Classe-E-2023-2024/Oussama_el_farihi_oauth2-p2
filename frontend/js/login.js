@@ -13,8 +13,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        localStorage.setItem('token', data.access_token); // Stockez le token pour les requêtes futures
-        window.location.href = 'users.html'; // Redirection vers la page des utilisateurs
+        localStorage.setItem('token', data.access_token);
+        window.location.href = 'users.html';
     })
     .catch((error) => {
         console.error('Error:', error);
