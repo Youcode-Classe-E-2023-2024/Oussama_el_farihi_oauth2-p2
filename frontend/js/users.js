@@ -54,11 +54,11 @@ function generateUserRowHTML(user) {
 }
 
 function attachEventListeners() {
-    const token = localStorage.getItem('token'); // Récupérer le token depuis le stockage local
+    const token = localStorage.getItem('token');
     document.querySelectorAll('.deleteUserBtn').forEach(button => {
         button.addEventListener('click', function() {
             const userId = this.getAttribute('data-user-id');
-            deleteUser(userId, token); // Passer le token comme argument
+            deleteUser(userId, token);
         });
     });
 
@@ -97,6 +97,11 @@ function showEditForm(user) {
     document.getElementById('updateUserId').value = user.id;
     document.getElementById('updateUserName').value = user.name;
     document.getElementById('updateUserEmail').value = user.email;
+    // Clear previous roles from the dropdown to avoid duplication
+    document.getElementById('updateUserRole').innerHTML = '<option value="">Select Role</option>';
+    // Fetch and display roles
+    const token = localStorage.getItem('token');
+    fetchRoles(token);
     document.getElementById('updateUserModal').style.display = 'block';
 }
 
@@ -105,6 +110,7 @@ function updateUser(token) {
     const name = document.getElementById('updateUserName').value;
     const email = document.getElementById('updateUserEmail').value;
 
+    // Update user details
     fetch(`http://localhost:8000/api/users/${userId}`, {
         method: 'PUT',
         headers: {
@@ -115,26 +121,48 @@ function updateUser(token) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-        location.reload();
+        console.log('User updated successfully:', data);
+        assignUserRole(token, userId);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function fetchRoles(token) {
+    fetch('http://localhost:8000/api/roles', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const roleSelect = document.getElementById('updateUserRole');
+        data.forEach(role => {
+            const option = document.createElement('option');
+            option.value = role.name;
+            option.innerText = role.name;
+            roleSelect.appendChild(option);
+        });
     })
     .catch(error => console.error('Error:', error));
 }
 
 
-function assignRoleToUser(userId, roleId, token) {
+function assignUserRole(token, userId) {
+    const role = document.getElementById('updateUserRole').value;
     fetch(`http://localhost:8000/api/users/${userId}/assign-role`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ role: roleId })
+        body: JSON.stringify({ role }),
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
+        console.log('Role assigned successfully:', data);
         location.reload();
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error in role assignment:', error));
 }
