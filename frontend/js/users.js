@@ -54,10 +54,11 @@ function generateUserRowHTML(user) {
 }
 
 function attachEventListeners() {
+    const token = localStorage.getItem('token'); // Récupérer le token depuis le stockage local
     document.querySelectorAll('.deleteUserBtn').forEach(button => {
         button.addEventListener('click', function() {
             const userId = this.getAttribute('data-user-id');
-            deleteUser(userId);
+            deleteUser(userId, token); // Passer le token comme argument
         });
     });
 
@@ -111,6 +112,24 @@ function updateUser(token) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        location.reload();
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+function assignRoleToUser(userId, roleId, token) {
+    fetch(`http://localhost:8000/api/users/${userId}/assign-role`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ role: roleId })
     })
     .then(response => response.json())
     .then(data => {
