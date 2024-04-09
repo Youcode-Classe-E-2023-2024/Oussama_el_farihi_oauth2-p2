@@ -386,47 +386,11 @@
               Dashboard
             </h2>
 
-            <!-- New Table -->
-            <div class="w-full overflow-hidden rounded-lg shadow-xs">
-              <button id="showAddUserModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add User
-              </button>
-              <div class="w-full overflow-x-auto">
-                <table class="w-full whitespace-no-wrap">
-                  <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                      <th class="px-4 py-3">ID</th>
-                      <th class="px-4 py-3">Name</th>
-                      <th class="px-4 py-3">Email</th>
-                      <th class="px-4 py-3">Role</th>
-                      <th class="px-4 py-3">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" id="usersList">
-                </table>
-              </div>
-              <div
-                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            </div>
-            <!-- Modal -->
-            <div id="updateUserModal" style="display:none;">
-              <form id="updateUserForm">
-                  <input type="hidden" id="updateUserId">
-                  <input type="text" id="updateUserName" placeholder="Name">
-                  <input type="email" id="updateUserEmail" placeholder="Email">
-                  <select id="updateUserRole">
-                    <option value="">Select Role</option>
-                    <!-- Options will be added here by fetchRoles() -->
-                </select>
-                  <button type="submit" id="updateUserSubmit">Update User</button>
-              </form>
-            </div>
-          </div>
-          </div>
+            
         </main>
       </div>
     </div>
-    <script src="js/users.js"></script>
+    <script src="js/roles.js"></script>
     <script src="js/logout.js"></script>
   </body>
 </html>
